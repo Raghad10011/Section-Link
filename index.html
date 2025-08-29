@@ -6,27 +6,16 @@
 <title>قروبات كلية ادارة الاعمال</title>
 <style>
 body { font-family:"Tahoma",sans-serif; background:linear-gradient(to bottom,#dff1ff,#f8fbff); margin:0; padding:0; color:#333; }
-
-/* ===== Header ===== */
 header { display:flex; align-items:center; justify-content:space-between; padding:20px 10%; background:#fff; border-radius:0 0 30px 30px; box-shadow:0 8px 20px rgba(0,0,0,.15); }
 header h1 { font-size:28px; margin:0; color:#1e90ff; }
-header img { max-width:60px; border-radius:12px; }
-
-/* ===== Hero Section ===== */
 .hero { display:flex; align-items:center; justify-content:space-between; padding:30px 10%; margin:20px 0; background:#fff; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,.08); }
 .hero-text { max-width:50%; }
 .hero-text h2 { font-size:28px; color:#1e90ff; margin-bottom:10px; }
 .hero-text p { font-size:16px; line-height:1.6; margin-bottom:15px; }
-.hero-text button { background:#1e90ff; color:#fff; border:none; padding:12px 20px; border-radius:10px; cursor:pointer; }
-.hero img { max-width:300px; border-radius:12px; }
-
-/* ===== Features ===== */
 .features { display:flex; justify-content:center; gap:15px; padding:20px 10%; }
 .feature { flex:1; background:#fff; padding:15px; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,.1); text-align:center; }
 .feature h3 { color:#1e90ff; margin-bottom:8px; font-size:18px; }
 .feature p { font-size:14px; color:#555; }
-
-/* ===== Cards (بحث + إضافة) ===== */
 .cards { display:flex; flex-direction:column; gap:20px; padding:0 10%; margin-bottom:20px; }
 .card { background:#fff; padding:20px; border-radius:18px; box-shadow:0 4px 12px rgba(0,0,0,.08); }
 .card h2 { margin-bottom:15px; font-size:20px; color:#34495e; border-right:4px solid #3498db; padding-right:10px; }
@@ -34,8 +23,6 @@ input, select, button { padding:12px; margin:5px 0; border-radius:12px; border:1
 input:focus, select:focus { border-color:#3498db; outline:none; box-shadow:0 0 5px rgba(52,152,219,.4); }
 button { background:#3498db; color:#fff; border:none; cursor:pointer; font-weight:bold; transition:.3s; }
 button:hover { background:#2980b9; }
-
-/* ===== Groups List ===== */
 .groups { padding:20px 10%; margin-bottom:30px; }
 .groups h2 { color:#1e90ff; margin-bottom:15px; }
 .group-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; }
@@ -45,18 +32,13 @@ button:hover { background:#2980b9; }
 .group-card p { margin:5px 0; font-size:14px; color:#555; }
 .group-card a { display:inline-block; margin-top:10px; text-decoration:none; padding:8px 12px; border-radius:10px; font-size:14px; background:#2ecc71; color:white; transition:.3s; }
 .group-card a:hover { background:#27ae60; }
-.group-card button.edit-btn { margin-left:8px; padding:5px 10px; font-size:12px; border-radius:8px; cursor:pointer; border:none; background:#f39c12; color:#fff; }
+.group-card button.edit-btn { margin-top:10px; padding:5px 10px; font-size:12px; border-radius:8px; cursor:pointer; border:none; background:#f39c12; color:#fff; }
 .group-card button.edit-btn:hover { background:#e67e22; }
 .empty { text-align:center; color:#888; font-style:italic; padding:15px; }
-
-/* ===== Footer ===== */
 footer { background:#fff; text-align:center; padding:15px; font-size:14px; color:#555; box-shadow:0 -2px 6px rgba(0,0,0,0.05); }
-
-/* ===== Responsive ===== */
 @media (max-width:768px){
   .hero { flex-direction:column; padding:20px; }
   .hero-text { max-width:100%; text-align:center; }
-  .hero img { max-width:60%; height:auto; margin:15px 0; } /* تصغير صورة الهيرو للجوال */
   .features { flex-direction:column; }
   .feature { width:100%; margin-bottom:10px; }
   .group-list { grid-template-columns:1fr; }
@@ -65,20 +47,18 @@ footer { background:#fff; text-align:center; padding:15px; font-size:14px; color
 </head>
 <body>
 
-<!-- Header -->
 <header>
   <h1>📚 شعب كلية ادارة الاعمال</h1>
 </header>
 
-<!-- Hero -->
 <section class="hero">
   <div class="hero-text">
     <h2>كل الشعب والتخصصات في مكان واحد ✨</h2>
     <p>ابحث عن شعبتك أو أضف/عدل قروبك بسهولة 🚀<br>كل شيء منظم ومرتب ليسهل الوصول والتواصل مع زملائك.</p>
   </div>
-<img src="https://i.imgur.com/TIgRFoV.png"alt="صورة الموقع"></section>
+  <img src="https://i.imgur.com/TIgRFoV.png" alt="صورة الموقع">
+</section>
 
-<!-- Features -->
 <section class="features">
   <div class="feature">
     <h3>⚡ سرعة الوصول</h3>
@@ -94,44 +74,29 @@ footer { background:#fff; text-align:center; padding:15px; font-size:14px; color
   </div>
 </section>
 
-<!-- Cards: بحث + إضافة -->
 <div class="cards">
   <div class="card">
     <h2>🔍 البحث والفلترة</h2>
-    <input type="text" id="searchInput" placeholder="ابحث عن شعبة...">
-    <select id="filterCourse" onchange="displayGroups(true)">
+    <select id="filterMajor">
       <option value="">اختر التخصص</option>
-      <option value="نظم معلومات إدارية">نظم معلومات إدارية</option>
-      <option value="الإدارة">الإدارة</option>
-      <option value="التسويق">التسويق</option>
-      <option value="المحاسبة">المحاسبة</option>
-      <option value="التمويل والاستثمار">التمويل والاستثمار</option>
-      <option value="عام">عام</option>
     </select>
-    <button onclick="searchGroups()">بحث</button>
+    <button onclick="filterGroups()">بحث</button>
   </div>
 
   <div class="card">
-    <h2>➕ إضافة قروب جديد</h2>
+    <h2>➕ إضافة / تعديل قروب</h2>
     <form id="addForm" onsubmit="addGroup(event)">
       <select id="course" required>
         <option value="">اختر التخصص</option>
-        <option value="نظم معلومات إدارية">نظم معلومات إدارية</option>
-        <option value="الإدارة">الإدارة</option>
-        <option value="التسويق">التسويق</option>
-        <option value="المحاسبة">المحاسبة</option>
-        <option value="التمويل والاستثمار">التمويل والاستثمار</option>
-        <option value="عام">عام</option>
       </select>
       <input type="text" id="section" placeholder="رقم الشعبة" required>
       <input type="text" id="subject" placeholder="اسم المقرر" required>
       <input type="url" id="link" placeholder="رابط القروب" required>
-      <button type="submit">إرسال ✅</button>
+      <button type="submit" id="submitBtn">إرسال ✅</button>
     </form>
   </div>
 </div>
 
-<!-- Groups List -->
 <section class="groups">
   <h2>📌 قائمة القروبات</h2>
   <div class="group-list" id="groupsList">
@@ -139,109 +104,133 @@ footer { background:#fff; text-align:center; padding:15px; font-size:14px; color
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   © 2025 جميع الحقوق محفوظة - رغد
 </footer>
 
-<!-- Backendless Database Script -->
 <script>
-const APP_ID = "C7E35547-72C4-4099-A7F8-6FEA6A8CAAA9";
-const REST_API_KEY = "239FFB7A-DE76-49AD-8D5F-9E54FB75CDC2";
-const TABLE_NAME = "Groups";
-const BASE_URL = `https://api.backendless.com/${APP_ID}/${REST_API_KEY}/data/${TABLE_NAME}`;
-
+const BASE_URL = "https://x8ki-letl-twmt.n7.xano.io/api:c-4041RS/groups";
 let groupsData = [];
+let editModeId = null;
 
+// تحميل القروبات والتخصصات
 async function fetchGroups() {
   try {
     const response = await fetch(BASE_URL);
     groupsData = await response.json();
-    displayGroups(false);
-  } catch (err) { console.error(err); }
+
+    // ملأ القوائم بالتخصصات المميزة
+    const majors = [...new Set(groupsData.map(g => g.Major))];
+    const filterSelect = document.getElementById("filterMajor");
+    const addSelect = document.getElementById("course");
+    filterSelect.innerHTML = '<option value="">اختر التخصص</option>';
+    addSelect.innerHTML = '<option value="">اختر التخصص</option>';
+    majors.forEach(m => {
+      const opt1 = document.createElement("option");
+      opt1.value = m;
+      opt1.textContent = m;
+      filterSelect.appendChild(opt1);
+
+      const opt2 = document.createElement("option");
+      opt2.value = m;
+      opt2.textContent = m;
+      addSelect.appendChild(opt2);
+    });
+
+    filterGroups();
+  } catch (err) {
+    console.error("خطأ في جلب القروبات:", err);
+  }
 }
 
-async function addGroup(event, editId=null){
+// عرض وتصفية القروبات
+function filterGroups() {
+  const selectedMajor = document.getElementById("filterMajor").value.trim();
+  const container = document.getElementById("groupsList");
+  container.innerHTML = "";
+
+  const filtered = groupsData.filter(g => !selectedMajor || g.Major === selectedMajor);
+
+  if (filtered.length > 0) {
+    filtered.forEach(g => {
+      container.innerHTML += `
+        <div class="group-card">
+          <h3>${g.Course}</h3>
+          <p>الشعبة: ${g.Section}</p>
+          <p>التخصص: ${g.Major}</p>
+          <a href="${g.Link}" target="_blank">انضم</a>
+          <button class="edit-btn" onclick='editGroup(${JSON.stringify(g)})'>تعديل</button>
+        </div>
+      `;
+    });
+  } else {
+    container.innerHTML = "<p class='empty'>❌ لا يوجد قروبات مطابقة للتخصص</p>";
+  }
+}
+
+// إضافة أو تعديل قروب
+async function addGroup(event) {
   event.preventDefault();
-  const Major=document.getElementById("course").value.trim();
-  const Section=document.getElementById("section").value.trim();
-  const Course=document.getElementById("subject").value.trim();
-  const Link=document.getElementById("link").value.trim();
-  if(!Major||!Section||!Course||!Link){ alert("اكمل جميع الحقول"); return; }
+  const Major = document.getElementById("course").value.trim();
+  const Section = document.getElementById("section").value.trim();
+  const Course = document.getElementById("subject").value.trim();
+  const Link = document.getElementById("link").value.trim();
 
-  const duplicate = groupsData.find(g=>g.Section===Section && g.Link===Link && g.objectId!==editId);
-  if(duplicate){ alert("القروب موجود مسبقاً بنفس الشعبة والرابط"); return; }
+  if (!Major || !Section || !Course || !Link) {
+    alert("اكمل جميع الحقول");
+    return;
+  }
 
-  const body={Major,Section,Course,Link};
-  try{
+  const body = { Major, Section, Course, Link };
+
+  try {
     let result;
-    if(editId){
-      const res=await fetch(`${BASE_URL}/${editId}`,{method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
-      result=await res.json();
-      const idx=groupsData.findIndex(g=>g.objectId===editId);
-      if(idx>=0) groupsData[idx]=result;
+    if (editModeId) {
+      const res = await fetch(`${BASE_URL}/${editModeId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      result = await res.json();
+      const idx = groupsData.findIndex(g => g.id === editModeId);
+      if (idx >= 0) groupsData[idx] = result;
+      editModeId = null;
+      document.getElementById("submitBtn").innerText = "إرسال ✅";
     } else {
-      const res=await fetch(BASE_URL,{method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
-      result=await res.json();
+      const res = await fetch(BASE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      result = await res.json();
       groupsData.push(result);
     }
+
     document.getElementById("addForm").reset();
-    displayGroups(true);
-  } catch(err){ console.error(err); alert("حدث خطأ أثناء العملية"); }
+    fetchGroups();
+  } catch (err) {
+    console.error("خطأ أثناء العملية:", err);
+    alert("حدث خطأ أثناء العملية");
+  }
 }
 
-function editGroup(g){
-  document.getElementById("course").value=g.Major;
-  document.getElementById("section").value=g.Section;
-  document.getElementById("subject").value=g.Course;
-  document.getElementById("link").value=g.Link;
-  document.getElementById("addForm").onsubmit=(e)=>addGroup(e,g.objectId);
-  window.scrollTo(0,0);
+// تعديل القروب
+function editGroup(g) {
+  document.getElementById("course").value = g.Major;
+  document.getElementById("section").value = g.Section;
+  document.getElementById("subject").value = g.Course;
+  document.getElementById("link").value = g.Link;
+  editModeId = g.id;
+  document.getElementById("submitBtn").innerText = "تعديل ✏️";
+  window.scrollTo(0, 0);
 }
 
-function displayGroups(showAll=false){
-  const container=document.getElementById("groupsList");
-  const filter=document.getElementById("filterCourse").value;
-  container.innerHTML="";
-  let filtered=groupsData.filter(g=>g.Major==="عام"||g.Major===filter);
-  if(!showAll) filtered=[];
-  filtered.forEach(g=>{
-    container.innerHTML+=`
-      <div class="group-card">
-        <h3>${g.Major}</h3>
-        <p>الشعبة: ${g.Section}</p>
-        <p>المقرر: ${g.Course}</p>
-        <a href="${g.Link}" target="_blank">انضم</a>
-        <button class="edit-btn" onclick='editGroup(${JSON.stringify(g)})'>تعديل</button>
-      </div>
-    `;
-  });
-  if(filtered.length===0) container.innerHTML="<p class='empty'>🔎 ابحث عن شعبة أو اختر التخصص</p>";
-}
-
-function searchGroups(){
-  const search=document.getElementById("searchInput").value.trim();
-  const container=document.getElementById("groupsList");
-  container.innerHTML="";
-  const results=groupsData.filter(g=>g.Section.includes(search));
-  results.forEach(g=>{
-    container.innerHTML+=`
-      <div class="group-card">
-        <h3>${g.Major}</h3>
-        <p>الشعبة: ${g.Section}</p>
-        <p>المقرر: ${g.Course}</p>
-        <a href="${g.Link}" target="_blank">انضم</a>
-        <button class="edit-btn" onclick='editGroup(${JSON.stringify(g)})'>تعديل</button>
-      </div>
-    `;
-  });
-  if(results.length===0) container.innerHTML="<p class='empty'>❌ لا يوجد قروب لهذه الشعبة</p>";
-}
-
+// تحميل القروبات عند بدء الصفحة
 fetchGroups();
 </script>
 
 </body>
 </html>
+
 
 
