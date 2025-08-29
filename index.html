@@ -119,12 +119,14 @@ async function fetchGroups() {
     const response = await fetch(BASE_URL);
     groupsData = await response.json();
 
-    // ملأ القوائم بالتخصصات المميزة
-    const majors = [...new Set(groupsData.map(g => g.Major))];
     const filterSelect = document.getElementById("filterMajor");
     const addSelect = document.getElementById("course");
+
     filterSelect.innerHTML = '<option value="">اختر التخصص</option>';
     addSelect.innerHTML = '<option value="">اختر التخصص</option>';
+
+    let majors = [...new Set(groupsData.map(g => g.Major).filter(m => m && m.trim() !== ""))];
+
     majors.forEach(m => {
       const opt1 = document.createElement("option");
       opt1.value = m;
@@ -168,7 +170,7 @@ function filterGroups() {
   }
 }
 
-// إضافة أو تعديل قروب
+// إضافة أو تعديل قروب مع منع تكرار رقم الشعبة لنفس التخصص
 async function addGroup(event) {
   event.preventDefault();
   const Major = document.getElementById("course").value.trim();
@@ -181,21 +183,34 @@ async function addGroup(event) {
     return;
   }
 
+  // التحقق من رقم الشعبة
+  const duplicate = groupsData.some(g =>
+    g.Major.trim().toLowerCase() === Major.toLowerCase() &&
+    g.Section.trim().toLowerCase() === Section.toLowerCase() &&
+    (g.id || g._id) !== editModeId
+  );
+
+  if (duplicate) {
+    alert("⚠️ رقم الشعبة هذا موجود مسبقاً ضمن نفس التخصص!");
+    return;
+  }
+
   const body = { Major, Section, Course, Link };
 
   try {
     let result;
     if (editModeId) {
       const res = await fetch(`${BASE_URL}/${editModeId}`, {
-        method: "PUT",
+        method: "PATCH", // استخدم PATCH لتحديث السجل
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
       result = await res.json();
-      const idx = groupsData.findIndex(g => g.id === editModeId);
+      const idx = groupsData.findIndex(g => (g.id || g._id) === editModeId);
       if (idx >= 0) groupsData[idx] = result;
       editModeId = null;
       document.getElementById("submitBtn").innerText = "إرسال ✅";
+      alert("✅ تم التعديل بنجاح");
     } else {
       const res = await fetch(BASE_URL, {
         method: "POST",
@@ -204,6 +219,7 @@ async function addGroup(event) {
       });
       result = await res.json();
       groupsData.push(result);
+      alert("✅ تمت الإضافة بنجاح");
     }
 
     document.getElementById("addForm").reset();
@@ -220,7 +236,7 @@ function editGroup(g) {
   document.getElementById("section").value = g.Section;
   document.getElementById("subject").value = g.Course;
   document.getElementById("link").value = g.Link;
-  editModeId = g.id;
+  editModeId = g.id || g._id;
   document.getElementById("submitBtn").innerText = "تعديل ✏️";
   window.scrollTo(0, 0);
 }
@@ -231,6 +247,4 @@ fetchGroups();
 
 </body>
 </html>
-
-
 
