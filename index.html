@@ -109,7 +109,7 @@ footer { background:#fff; text-align:center; padding:15px; font-size:14px; color
 </footer>
 
 <script>
-const BASE_URL = "https://x8ki-letl-twmt.n7.xano.io/api:c-4041RS/groups";
+const BASE_URL = "https://x8ki-letl-twmt.n7.xano.io/api:Xiw-CLaJ/groups";
 let groupsData = [];
 let editModeId = null;
 
@@ -161,7 +161,7 @@ function filterGroups() {
           <p>الشعبة: ${g.Section}</p>
           <p>التخصص: ${g.Major}</p>
           <a href="${g.Link}" target="_blank">انضم</a>
-          <button class="edit-btn" onclick='editGroup(${JSON.stringify(g)})'>تعديل</button>
+          <button class="edit-btn" onclick='editGroup(${g.id})'>تعديل</button>
         </div>
       `;
     });
@@ -170,7 +170,7 @@ function filterGroups() {
   }
 }
 
-// إضافة أو تعديل قروب مع منع تكرار رقم الشعبة لنفس التخصص
+// إضافة أو تعديل قروب
 async function addGroup(event) {
   event.preventDefault();
   const Major = document.getElementById("course").value.trim();
@@ -183,35 +183,25 @@ async function addGroup(event) {
     return;
   }
 
-  // التحقق من رقم الشعبة
-  const duplicate = groupsData.some(g =>
-    g.Major.trim().toLowerCase() === Major.toLowerCase() &&
-    g.Section.trim().toLowerCase() === Section.toLowerCase() &&
-    (g.id || g._id) !== editModeId
-  );
-
-  if (duplicate) {
-    alert("⚠️ رقم الشعبة هذا موجود مسبقاً ضمن نفس التخصص!");
-    return;
-  }
-
   const body = { Major, Section, Course, Link };
 
   try {
     let result;
-    if (editModeId) {
+    if (editModeId !== null) {
+      // PATCH لتحديث السجل
       const res = await fetch(`${BASE_URL}/${editModeId}`, {
-        method: "PATCH", // استخدم PATCH لتحديث السجل
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
       result = await res.json();
-      const idx = groupsData.findIndex(g => (g.id || g._id) === editModeId);
+      const idx = groupsData.findIndex(g => g.id === editModeId);
       if (idx >= 0) groupsData[idx] = result;
       editModeId = null;
       document.getElementById("submitBtn").innerText = "إرسال ✅";
       alert("✅ تم التعديل بنجاح");
     } else {
+      // POST لإضافة سجل جديد
       const res = await fetch(BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -230,21 +220,22 @@ async function addGroup(event) {
   }
 }
 
-// تعديل القروب
-function editGroup(g) {
-  document.getElementById("course").value = g.Major;
-  document.getElementById("section").value = g.Section;
-  document.getElementById("subject").value = g.Course;
-  document.getElementById("link").value = g.Link;
-  editModeId = g.id || g._id;
+// تفعيل وضع التعديل
+function editGroup(id) {
+  const group = groupsData.find(g => g.id === id);
+  if (!group) return;
+
+  document.getElementById("course").value = group.Major;
+  document.getElementById("section").value = group.Section;
+  document.getElementById("subject").value = group.Course;
+  document.getElementById("link").value = group.Link;
+  editModeId = group.id;
   document.getElementById("submitBtn").innerText = "تعديل ✏️";
   window.scrollTo(0, 0);
 }
 
-// تحميل القروبات عند بدء الصفحة
 fetchGroups();
 </script>
 
 </body>
 </html>
-
